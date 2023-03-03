@@ -6,7 +6,7 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class User {
+public class MdUser {
 	private String userId;
 	private String password;
 	private String userName;

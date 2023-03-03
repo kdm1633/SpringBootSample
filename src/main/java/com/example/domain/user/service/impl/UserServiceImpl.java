@@ -3,9 +3,10 @@ package com.example.domain.user.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.domain.user.model.User;
+import com.example.domain.user.model.MdUser;
 import com.example.domain.user.service.UserService;
 import com.example.repository.UserMapper;
 
@@ -14,20 +15,27 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserMapper mapper;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	@Override
-	public void signup(User user) {
+	public void signup(MdUser user) {
 		user.setDepartmentId(1);
 		user.setRole("ROLE_GENERAL");
+		
+		String rawPassword = user.getPassword();
+		user.setPassword(passwordEncoder.encode(rawPassword));
+		
 		mapper.insertOne(user);
 	}
 	
 	@Override
-	public User getUser(String userId) {
+	public MdUser getUser(String userId) {
 		return mapper.findOne(userId);
 	}
 	
 	@Override
-	public List<User> getUsers(User user) {
+	public List<MdUser> getUsers(MdUser user) {
 		return mapper.findMany(user);
 	}
 	
@@ -39,5 +47,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void deleteUser(String userId) {
 		int count = mapper.deleteOne(userId);
+	}
+	
+	@Override
+	public MdUser getLoginUser(String userId) {
+		return mapper.findLoginUser(userId);
 	}
 }

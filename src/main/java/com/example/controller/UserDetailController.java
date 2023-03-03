@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.domain.user.model.User;
+import com.example.domain.user.model.MdUser;
 import com.example.domain.user.service.UserService;
 import com.example.form.UserDetailForm;
 
@@ -24,7 +24,7 @@ public class UserDetailController {
 	
 	@GetMapping("/detail/{userId:.+}")
 	public String getUser(UserDetailForm form, Model model, @PathVariable("userId") String userId) {
-		User user = userService.getUser(form.getUserId());
+		MdUser user = userService.getUser(form.getUserId());
 		user.setPassword(null);
 		
 		form = modelMapper.map(user, UserDetailForm.class);

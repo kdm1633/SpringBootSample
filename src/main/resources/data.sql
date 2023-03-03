@@ -5,8 +5,8 @@ INSERT INTO m_user(
 	user_id, password, user_name, birthday,
 	age, gender, department_id, role
 ) VALUES
-('system@co.jp', 'password', 'System Administrator', '2000-01-01', 21, 1, 1, 'ROLE_ADMIN'),
-('user@co.jp', 'password', 'User1', '2000-01-01', 21, 2, 2, 'ROLE_GENERAL');
+('system@co.jp', '$2a$10$vJ5TGP6zajJTcyCk48UehO3meRo9C2VEepUfF1I4UmPvwNJVnCO/2', 'System Administrator', '2000-01-01', 21, 1, 1, 'ROLE_ADMIN'),
+('user@co.jp', '$2a$10$vJ5TGP6zajJTcyCk48UehO3meRo9C2VEepUfF1I4UmPvwNJVnCO/2', 'User1', '2000-01-01', 21, 2, 2, 'ROLE_GENERAL');
 
 /* Department master */
 INSERT INTO m_department(

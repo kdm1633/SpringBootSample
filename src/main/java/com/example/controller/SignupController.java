@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.application.service.UserApplicationService;
-import com.example.domain.user.model.User;
+import com.example.domain.user.model.MdUser;
 import com.example.domain.user.service.UserService;
 import com.example.form.GroupOrder;
 import com.example.form.SignupForm;
@@ -51,7 +51,7 @@ public class SignupController {
 	public String postSignup(Model model, Locale locale, @ModelAttribute @Validated(GroupOrder.class) SignupForm form, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) return getSignup(model, locale, form);
 		
-		User user = modelMapper.map(form, User.class);
+		MdUser user = modelMapper.map(form, MdUser.class);
 		userService.signup(user);
 		
 		log.info(form.toString());

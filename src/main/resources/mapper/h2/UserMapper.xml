@@ -5,7 +5,7 @@
 <mapper namespace="com.example.repository.UserMapper">
 
 	<!-- User -->
-	<resultMap type="com.example.domain.user.model.User" id="user">
+	<resultMap type="com.example.domain.user.model.MdUser" id="user">
 		<id column="user_id" property="userId"/>
 		<result column="password" property="password"/>
 		<result column="user_name" property="userName"/>
@@ -69,7 +69,7 @@
 		LEFT JOIN t_salary ON m_user.user_id = t_salary.user_id
 		WHERE m_user.user_id = #{userId}
 	</select>
-	<select id="findMany" resultType="User">
+	<select id="findMany" resultType="MdUser">
 		SELECT * FROM m_user
 		<where>
 			<if test="userId != null">
@@ -79,6 +79,10 @@
 				and user_name LIKE '%' || #{userName} || '%'
 			</if>
 		</where>
+	</select>
+	
+	<select id="findLoginUser" resultType="MdUser">
+		SELECT * FROM m_user WHERE user_id = #{userId}
 	</select>
 	
 	<update id="updateOne">
