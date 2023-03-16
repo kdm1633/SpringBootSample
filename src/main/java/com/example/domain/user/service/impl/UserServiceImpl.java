@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.domain.user.model.MdUser;
 import com.example.domain.user.service.UserService;
@@ -39,6 +40,7 @@ public class UserServiceImpl implements UserService {
 		return mapper.findMany(user);
 	}
 	
+	@Transactional
 	@Override
 	public void updateUser(String userId, String password, String userName) {
 		mapper.updateOne(userId, password, userName);
