@@ -37,8 +37,10 @@ public class SecurityConfig {
 	@Bean
 	protected SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests()
-			.requestMatchers("/login", "/user/signup").permitAll()
-			.requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()	// "/h2-console/**" String doesn't work
+			.requestMatchers("/login",
+					"/user/signup",
+					"/user/signup/rest").permitAll()
+//			.requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()	// "/h2-console/**" String doesn't work
 			.requestMatchers("/admin").hasAuthority("ROLE_ADMIN")
 			.anyRequest().authenticated();
 		

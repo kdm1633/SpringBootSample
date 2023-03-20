@@ -4,6 +4,10 @@
 	layout:decorate="~{layout/layout}">
 <head>
 	<link rel="stylesheet" th:href="@{/css/user/list.css}">
+	<!-- datatables css/js -->
+	<link rel="stylesheet" th:href="@{/webjars/datatables/css/jquery.dataTables.min.css}">
+	<script th:src="@{/webjars/datatables/js/jquery.dataTables.min.js}" defer></script>
+	<script th:src="@{/js/user/list.js}" defer></script>
 	<title>User List</title>
 </head>
 <body>
@@ -22,8 +26,10 @@
 					<input type="text" th:field="*{userName}" class="form-control"/>
 				</div>
 				<button type="submit" class="btn btn-primary">search</button>
+				<button type="button" id="btn-search" class="btn btn-primary ml-3">search(REST)</button>
 			</form>
 		</div>
+		<!-- User list -->
 		<div>
 			<table class="table table-striped table-bordered table-hover">
 				<thead class="thead-light">
@@ -48,6 +54,21 @@
 						</td>
 					</tr>
 				</tbody>
+			</table>
+		</div>
+		<!-- User list(REST) -->
+		<div>
+			<table id="user-list-table" class="table table-striped table-bordered table-hover w-100">
+				<thead class="thead-light">
+					<tr>
+						<th class="th-width">User Id</th>
+						<th class="th-width">User Name</th>
+						<th class="th-width">Birthday</th>
+						<th class="th-width">Age</th>
+						<th class="th-width">Gender</th>
+						<th class="th-width"></th>
+					</tr>
+				</thead>
 			</table>
 		</div>
 	</div>
