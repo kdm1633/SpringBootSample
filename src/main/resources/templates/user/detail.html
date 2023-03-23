@@ -69,7 +69,7 @@
 			</div>
 			
 			<!-- Salary -->
-			<div th:block="*{salaryList!=null and salaryList.size()>0}">
+			<th:block th:if="*{salaryList!=null and salaryList.size()>0}">
 				<div class="header border-bottom">
 					<h1 class="h2">Salary</h1>
 				</div>
@@ -82,12 +82,12 @@
 					</thead>
 					<tbody>
 						<tr th:each="item : *{salaryList}">
-							<td th:text="${item.yearMonth}"></td>
+							<td th:text="${item.salaryKey.yearMonth}"></td>
 							<td th:text="${#numbers.formatInteger(item.salary, 3, 'COMMA')}"></td>
 						</tr>
 					</tbody>
 				</table>
-			</div>
+			</th:block>
 		</form>
 	</div>
 </body>
