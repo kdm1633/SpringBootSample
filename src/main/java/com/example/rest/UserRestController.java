@@ -48,7 +48,7 @@ public class UserRestController {
 	
 	@PostMapping("/signup/rest")
 	public RestResult postSignup(@Validated(GroupOrder.class) SignupForm form,
-		BindingResult bindingResult, Locale locale) {
+			BindingResult bindingResult, Locale locale) {
 		if (bindingResult.hasErrors()) {
 			Map<String, String> errors = new HashMap<>();
 			
