@@ -71,6 +71,14 @@
 				</thead>
 			</table>
 		</div>
+		<div class="form-inline">
+			<form method="post" th:action="@{/user/list/download}" id="download-form">
+				<button type="submit" class="btn btn-primary">download</button>
+				<button id="download-javascript" class="btn btn-primary ml-3">download(JS)</button>
+				<button id="download-jquery" class="btn btn-primary ml-3">download(JQuery)</button>
+				<button id="download-zip" class="btn btn-primary ml-3">download(zip)</button>
+			</form>
+		</div>
 	</div>
 </body>
 </html>

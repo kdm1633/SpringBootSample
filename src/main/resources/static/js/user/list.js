@@ -5,8 +5,78 @@ let table;
 jQuery(function($) {
 	createDataTables();
 	
-	$('#btn-search').click(function(event) {
+	$('#btn-search').click(function() {
 		search();
+	});
+	
+	$('#download-javascript').click(function(event) {
+		event.preventDefault();
+		
+		let xhr = new XMLHttpRequest();
+		
+		xhr.open("POST", "/user/list/download", true);
+		xhr.responseType = "blob";
+		xhr.onload = function() {
+			let filename = "userlistJavascript.csv";
+			saveFile(filename, xhr.response);
+		}
+		
+		// If you only want to download a file (GET method), remove this.
+		let csrfHeader = "X-CSRF-TOKEN";
+		let token = $('input[name="_csrf"]').val();
+		xhr.setRequestHeader(csrfHeader, token);
+		
+		xhr.send();
+	});
+	
+	$('#download-jquery').click(function(event) {
+		event.preventDefault();
+		
+		// If you only want to download a file (GET method), remove this.
+		let formData = $('#download-form').serializeArray();
+		
+		$.ajax({
+			method: "POST",
+			url: "/user/list/download",
+			data: formData,
+			xhrFields: {
+				responseType: "blob"
+			}
+		}).done(function(data, status, jqXHR) {
+			let filename = "userlistJquery.csv";
+			const blob = new Blob([data], {type: data.type});
+			
+			saveFile(filename, blob);
+		}).fail(function(jqXHR, status, errorThrown) {
+			alert("File download failure");
+		}).always(function(data, status, errorThrown) {
+			// None
+		});
+	});
+	
+	$('#download-zip').click(function(event) {
+		event.preventDefault();
+		
+		// If you only want to download a file (GET method), remove this.
+		let formData = $('#download-form').serializeArray();
+		
+		$.ajax({
+			method: "POST",
+			url: "/user/list/download/zip",
+			data: formData,
+			xhrFields: {
+				responseType: "blob"
+			}
+		}).done(function(data, status, jqXHR) {
+			let filename = "sample.zip";
+			const blob = new Blob([data], {type: data.type});
+			
+			saveFile(filename, blob);
+		}).fail(function(jqXHR, status, errorThrown) {
+			alert("File download failure");
+		}).always(function(data, status, errorThrown) {
+			// None
+		});
 	});
 });
 
@@ -72,4 +142,20 @@ function search() {
 	}).always(function() {
 		// Process to always execute
 	})
+}
+
+function saveFile(filename, blob) {
+	if (window.navigator.msSaveBlob) {
+		window.navigator.msSaveBlob(blob, filename);
+	}
+	else {
+		let a = document.createElement('a');
+		let blobUrl = window.URL.createObjectURL(blob);
+		
+		document.body.appendChild(a);
+		a.style = "display: none";
+		a.href = blobUrl;
+		a.download = filename;
+		a.click();
+	}
 }

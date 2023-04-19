@@ -1,5 +1,6 @@
 package com.example.domain.user.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -30,4 +31,13 @@ public class MdUser {
 	@OneToMany
 	@JoinColumn(insertable=false, updatable=false, name="userId")
 	private List<Salary> salaryList;
+	
+	public String toCsv() {
+		String genderStr = (gender == 1) ? "male" : "female";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		
+		String csv = userId + ", " + userName + ", " + sdf.format(birthday) + ", " + age + ", " + genderStr + "\r\n";
+		
+		return csv;
+	}
 }
